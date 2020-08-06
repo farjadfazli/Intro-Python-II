@@ -1,10 +1,12 @@
 from room import Room
+from player import Player
+from item import Item
 
 # Declare all the rooms
 
 room = {
     'outside':  Room("Outside Cave Entrance",
-                     "North of you, the cave mount beckons"),
+                     "North of you, the cave mount beckons", Item("Sword", "A sharp sword!")),
 
     'foyer':    Room("Foyer", """Dim light filters in from the south. Dusty
 passages run north and east."""),
@@ -39,12 +41,53 @@ room['treasure'].s_to = room['narrow']
 
 # Make a new player object that is currently in the 'outside' room.
 
+player = Player(room['outside'])
+
 # Write a loop that:
+while True:
 #
 # * Prints the current room name
+    print(player.location)
 # * Prints the current description (the textwrap module might be useful here).
 # * Waits for user input and decides what to do.
-#
+    command = input("> ").split(',')
+
+    if command[0] == 'q':
+        break
+
+    elif command[0] == 'n':
+        if hasattr(player.location, "n_to"):
+            player.location = player.location.n_to
+            
+        else:
+            print("\nYou can't go there!\n")
+
+    elif command[0] == 's':
+        if hasattr(player.location, "s_to"):
+            player.location = player.location.s_to
+
+        else:
+            print("\nYou can't go there!\n")
+
+    elif command[0] == 'e':
+        if hasattr(player.location, "e_to"):
+            player.location = player.location.e_to
+
+        else:
+            print("\nYou can't go there!\n")
+
+    elif command[0] == 'w':
+        if hasattr(player.location, "w_to"):
+            player.location = player.location.w_to
+    
+        else:
+            print("\nYou can't go there!\n")
+
+
+
+
+
+
 # If the user enters a cardinal direction, attempt to move to the room there.
 # Print an error message if the movement isn't allowed.
 #
