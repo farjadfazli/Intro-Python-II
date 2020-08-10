@@ -8,3 +8,13 @@ class Player:
     
     def pickup_item(self, item):
         self.inventory.append(item)
+        self.location.item.remove(item)
+    
+    def drop_item(self, item):
+        self.inventory.remove(item)
+        self.location.item.append(item)
+    
+    def print_inventory(self):
+        print("Current inventory:")
+        for item in self.inventory:
+            print(item.name)
